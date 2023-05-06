@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyCarsApplication</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textButton">Details</string>
+    <string name="mainText">My favourite cars</string>
+</resources>
