@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.testapplication.R
 import com.example.testapplication.data.remote.model.ItemApiModel
 import com.example.testapplication.data.remote.model.Products
@@ -36,7 +37,14 @@ class FragmentMainList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val swipe = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
+
         getAllProducts()
+
+        swipe.setOnRefreshListener {
+            getAllProducts()
+            swipe.isRefreshing = false
+        }
     }
 
     private fun getAllProducts() {

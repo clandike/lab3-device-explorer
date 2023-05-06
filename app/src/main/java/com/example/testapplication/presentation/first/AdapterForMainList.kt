@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.testapplication.R
 import com.example.testapplication.data.remote.model.Products
 
-class AdapterForMainList(private val mList: List<Products> ) :
+class AdapterForMainList(private val mList: List<Products>, val onClick: (model: Products, position: Int) -> Unit ) :
     RecyclerView.Adapter<AdapterForMainList.ItemViewHolder>() {
 
     inner class ItemViewHolder(ItemView: View) :  RecyclerView.ViewHolder(ItemView) {
