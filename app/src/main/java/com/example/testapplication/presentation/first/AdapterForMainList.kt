@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.testapplication.R
 import com.example.testapplication.data.remote.model.Products
-import com.example.testapplication.databinding.ItemCarBinding
 
 class AdapterForMainList(private val mList: List<Products> ) :
     RecyclerView.Adapter<AdapterForMainList.ItemViewHolder>() {
 
     inner class ItemViewHolder(ItemView: View) :  RecyclerView.ViewHolder(ItemView) {
-
         val imageView : ImageView = ItemView.findViewById(R.id.imageView)
         val nameView : TextView = ItemView.findViewById(R.id.tvName)
         val descView : TextView = ItemView.findViewById(R.id.tvDesc)

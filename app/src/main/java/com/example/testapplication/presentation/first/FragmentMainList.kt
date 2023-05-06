@@ -2,17 +2,16 @@ package com.example.testapplication.presentation.first
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
-import com.example.testapplication.data.remote.ApiFactory
-import com.example.testapplication.data.remote.ItemApiInterface
-import com.example.testapplication.data.remote.model.CarApiModel
+import com.example.testapplication.data.remote.model.ItemApiModel
 import com.example.testapplication.data.remote.model.Products
 import retrofit2.Call
 import retrofit2.Response
@@ -20,7 +19,6 @@ import retrofit2.Response
 
 class FragmentMainList : Fragment() {
     private var data = ArrayList<Products>()
-    lateinit var viewModel: MainListViewModel
 
     val args: Fragment by navArgs()
 
@@ -39,34 +37,32 @@ class FragmentMainList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getAllProducts()
-        val rv = view.findViewById<RecyclerView>(R.id.rv)
-        val layoutManager = LinearLayoutManager(context)
-        rv.layoutManager = layoutManager
     }
 
     private fun getAllProducts() {
-        val retrofit = ApiFactory.buildService(ItemApiInterface::class.java)
-        retrofit.getItems().enqueue(object : retrofit2.Callback<CarApiModel> {
-
-            override fun onResponse(call: Call<CarApiModel>, response: Response<CarApiModel>) {
+        val viewModel = MainListViewModel()
+        viewModel.getData().enqueue(object : retrofit2.Callback<ItemApiModel> {
+            override fun onResponse(call: Call<ItemApiModel>, response: Response<ItemApiModel>) {
                 try {
                     // to avoid nulPointerException
                     val responseBody = response.body()!!
                     data = responseBody.products
 
-                    var adapter = AdapterForMainList(data)
+                    val adapter = AdapterForMainList(data)
                     val rv = view?.findViewById<RecyclerView>(R.id.rv)
                     rv?.adapter = adapter
 
-                } catch(ex: java.lang.Exception) {
+                    val layoutManager = LinearLayoutManager(context)
+                    rv?.layoutManager = layoutManager
+
+                } catch (ex: java.lang.Exception) {
                     ex.printStackTrace()
                 }
             }
-
-            override fun onFailure(call: Call<CarApiModel>, t: Throwable) {
+            override fun onFailure(call: Call<ItemApiModel>, t: Throwable) {
                 Log.e("Failed", "Api Failed" + t.message)
+                Toast.makeText(requireContext(),"No Internet connection",Toast.LENGTH_LONG).show()
             }
-
         })
     }
 

@@ -2,7 +2,7 @@ package com.example.testapplication.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-final data class CarApiModel(
+final data class ItemApiModel(
     @SerializedName("products")
     var products: ArrayList<Products> = arrayListOf(),
     @SerializedName("total")
