@@ -1,38 +1,40 @@
 package com.example.testapplication.presentation.first
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.testapplication.R
 import com.example.testapplication.data.remote.model.Products
+import com.example.testapplication.databinding.ItemCarBinding
 
-class AdapterForMainList(private val mList: List<Products>, val onClick: (model: Products, position: Int) -> Unit ) :
+class AdapterForMainList(private val mList: List<Products>, val onClick: (item: Products, position: Int) -> Unit) :
     RecyclerView.Adapter<AdapterForMainList.ItemViewHolder>() {
 
-    inner class ItemViewHolder(ItemView: View) :  RecyclerView.ViewHolder(ItemView) {
-        val imageView : ImageView = ItemView.findViewById(R.id.imageView)
-        val nameView : TextView = ItemView.findViewById(R.id.tvName)
-        val descView : TextView = ItemView.findViewById(R.id.tvDesc)
+    inner class ItemViewHolder(val binding: ItemCarBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bindItem(item: Products, position: Int) {
+            binding.tvName.text = item.brand
+            binding.tvDesc.text = item.title
+
+            binding.btn.setOnClickListener {
+                onClick(item, position)
+            }
+
+            Glide.with(binding.imageView.context)
+                .load(item.images[0])
+                .into(binding.imageView)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_car, parent, false)
+        val view = ItemCarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(view)
     }
+
     override fun getItemCount(): Int {
         return mList.size
     }
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
-        val product = mList[position]
-        holder.nameView.setText(product.brand)
-        holder.descView.setText(product.description)
-        Glide.with(holder.imageView.context)
-            .load(product.images[0].toString())
-            .into(holder.imageView)
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bindItem(mList[position],position)
     }
 }

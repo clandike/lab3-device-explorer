@@ -7,6 +7,5 @@ import retrofit2.http.Headers
 interface ItemApiInterface {
     @Headers("Content-Type: application/json")
     @GET("/products")
-    fun getItems(): retrofit2.Call<ItemApiModel>
-
+        fun getItems(): retrofit2.Call<ItemApiModel>
 }
