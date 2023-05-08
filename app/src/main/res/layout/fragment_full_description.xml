@@ -4,34 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.second.FragmentFullDescription">
+    tools:context=".presentation.secondScreen.FragmentFullDescription">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageCar"
+        <androidx.recyclerview.widget.RecyclerView
+            android:orientation="horizontal"
+            android:id="@+id/rvItemImages"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_height="350dp"
+            android:layout_margin="10dp"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:listitem="@layout/item_image" />
 
         <TextView
-            android:layout_margin="18dp"
-            android:id="@+id/descriptionCar"
-            android:layout_width="match_parent"
+            android:id="@+id/brandItem"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageCar"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/rvItemImages"
+            tools:text="TextView" />
 
+        <TextView
+            android:id="@+id/descItem"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/brandItem"
+            tools:text="Description" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

@@ -1,18 +1,18 @@
 package com.example.testapplication.data
 
-import com.example.testapplication.data.remote.ApiFactory
-import com.example.testapplication.data.remote.model.CarApiModel
-import com.example.testapplication.data.remote.model.Products
+import com.example.testapplication.data.remote.ApiServiceBuilder
+import com.example.testapplication.data.remote.model.ItemApiModel
 
 // клас, який відповідає звідкіля нам брати дані: локальні(local) або ввідалені(remote)
 object ItemRepository {
 
-    private val api = ApiFactory.carApi
+    private val api = ApiServiceBuilder.itemApi
 
-    fun getItems(): ArrayList<Products>? {
-        val response = api.getResponseItem()
+    suspend fun getItems(): ItemApiModel? {
+        val response = api.getItems()
         if (response.isSuccessful && response.body() != null) {
-            return response.body()!!.products
+            val body = response.body()
+            return body
         } else {
             return null
         }
