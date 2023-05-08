@@ -1,16 +1,20 @@
 package com.example.testapplication.data
 
 import com.example.testapplication.data.remote.ApiServiceBuilder
-import com.example.testapplication.data.remote.ItemApiInterface
 import com.example.testapplication.data.remote.model.ItemApiModel
-import retrofit2.Call
 
 // клас, який відповідає звідкіля нам брати дані: локальні(local) або ввідалені(remote)
 object ItemRepository {
 
-    private val api = ApiServiceBuilder.buildService(ItemApiInterface::class.java)
+    private val api = ApiServiceBuilder.itemApi
 
-    fun getItems(): Call<ItemApiModel> {
-        return api.getItems()
+    suspend fun getItems(): ItemApiModel? {
+        val response = api.getItems()
+        if (response.isSuccessful && response.body() != null) {
+            val body = response.body()
+            return body
+        } else {
+            return null
+        }
     }
 }

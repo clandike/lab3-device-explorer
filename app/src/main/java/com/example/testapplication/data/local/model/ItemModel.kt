@@ -5,3 +5,4 @@ val images: ArrayList<String>? ,
 val description: String?,
 val brand: String?
 )
+

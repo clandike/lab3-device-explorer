@@ -4,7 +4,6 @@ import com.example.testapplication.data.ItemRepository
 import com.example.testapplication.data.local.model.ItemDataBase
 import com.example.testapplication.data.local.model.ItemModel
 import com.example.testapplication.data.remote.model.ItemApiModel
-import retrofit2.Call
 
 // мізки, перетворення якість
 object ItemUseCase {
@@ -12,17 +11,20 @@ object ItemUseCase {
     private val itemData = ItemDataBase()
 
     fun createItem(images: ArrayList<String>?, description: String?, brand: String?) {
-        itemData.createItem(images,description,brand)
+        itemData.createItem(images, description, brand)
     }
 
     fun getItem(): ArrayList<ItemModel> {
-        var listItems = ArrayList<ItemModel>()
+        val listItems = ArrayList<ItemModel>()
         listItems.add(itemData.item!!)
         return listItems
     }
 
-    fun getItems(): Call<ItemApiModel> {
-        return repo.getItems()
+    suspend fun getItems(): ItemApiModel? {
+        if (repo.getItems() == null) {
+            return null
+        } else {
+            return repo.getItems()
+        }
     }
-
 }

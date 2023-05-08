@@ -1,16 +1,16 @@
-package com.example.testapplication.presentation.first
+package com.example.testapplication.presentation.firstScreen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.testapplication.data.remote.model.Products
-import com.example.testapplication.databinding.ItemCarBinding
+import com.example.testapplication.databinding.ItemExampleBinding
 
 class AdapterForMainList(private val mList: List<Products>, val onClick: (item: Products, position: Int) -> Unit) :
     RecyclerView.Adapter<AdapterForMainList.ItemViewHolder>() {
 
-    inner class ItemViewHolder(val binding: ItemCarBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(val binding: ItemExampleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(item: Products, position: Int) {
             binding.tvName.text = item.brand
             binding.tvDesc.text = item.title
@@ -26,7 +26,7 @@ class AdapterForMainList(private val mList: List<Products>, val onClick: (item: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val view = ItemCarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemExampleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(view)
     }
 
